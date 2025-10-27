@@ -1,6 +1,3 @@
-import random
-
-
 def find_max_path(board):
     """
 
@@ -35,10 +32,12 @@ def find_max_path(board):
     #Fill the rest
     for i in range(1, n):
         for j in range(1, m):
+            # --- THIS IS THE FIX ---
+            # The order in max() must match the if/elif/else order below.
             dp[i][j] = board[i][j] + max(
-                dp[i - 1][j],  # From top
-                dp[i][j - 1],  # From left
-                dp[i - 1][j - 1]  # From diagonal
+                dp[i - 1][j - 1],  # From diagonal (Preference 1)
+                dp[i - 1][j],      # From top (Preference 2)
+                dp[i][j - 1]       # From left (Preference 3)
             )
 
     #Reconstruct the path by backtracking
@@ -58,32 +57,19 @@ def find_max_path(board):
         elif j == 0:
             i -= 1  #Comes from top
         else:
-            #Check general case, prioritizing diagonal, then top, then left
+            # This logic now matches the max() preference order exactly.
             prev_val = dp[i][j] - board[i][j]
 
             if prev_val == dp[i - 1][j - 1]:
-                i, j = i - 1, j - 1
+                i, j = i - 1, j - 1  # Preference 1
             elif prev_val == dp[i - 1][j]:
-                i -= 1
+                i -= 1               # Preference 2
             else:
-                j -= 1
+                j -= 1               # Preference 3
 
     #The path was built backward, so reverse it
     max_value = dp[n - 1][m - 1]
     return max_value, path[::-1]
-
-
-#Testing function
-def generate_test_board(n, m, min_val=-10, max_val=50):
-    """Generates a random n*m board."""
-    return [[random.randint(min_val, max_val) for _ in range(m)] for _ in range(n)]
-
-
-def print_board(board):
-    """Utility to print the board neatly."""
-    for row in board:
-        print(" ".join(f"{val:3}" for val in row))
-
 #Main
 if __name__ == "__main__":
     #Test 1: Small 3x3 Random Board
