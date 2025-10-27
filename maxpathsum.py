@@ -70,6 +70,17 @@ def find_max_path(board):
     #The path was built backward, so reverse it
     max_value = dp[n - 1][m - 1]
     return max_value, path[::-1]
+#Testing functions
+def generate_test_board(n, m, min_val=-10, max_val=50):
+    """Generates a random n*m board."""
+    return [[random.randint(min_val, max_val) for _ in range(m)] for _ in range(n)]
+
+
+def print_board(board):
+    """Utility to print the board neatly."""
+    for row in board:
+        print(" ".join(f"{val:3}" for val in row))
+
 #Main
 if __name__ == "__main__":
     #Test 1: Small 3x3 Random Board
