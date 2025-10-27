@@ -83,3 +83,32 @@ def print_board(board):
     """Utility to print the board neatly."""
     for row in board:
         print(" ".join(f"{val:3}" for val in row))
+
+#Main
+if __name__ == "__main__":
+    #Test 1: Small 3x3 Random Board
+    print("--- Test Case 1: 3x3 Random Board ---")
+    board1 = generate_test_board(3, 3, min_val=-10, max_val=20)
+    print("Board:")
+    print_board(board1)
+    max_val1, path1 = find_max_path(board1)
+    print(f"\nMaximum Value: {max_val1}")
+    print(f"Path: {path1}\n")
+
+    #Test 2: 4x5 Random Board
+    print("--- Test Case 2: 5x7 Random Board ---")
+    board2 = generate_test_board(5, 7, min_val=-20, max_val=20)
+    print("Board:")
+    print_board(board2)
+    max_val2, path2 = find_max_path(board2)
+    print(f"\nMaximum Value: {max_val2}")
+    print(f"Path: {path2}\n")
+
+    #Test 3: 5x4 Random Board
+    print("--- Test Case 3: 4x14 Random Board ---")
+    board3 = generate_test_board(4, 14, min_val=0, max_val=30)
+    print("Board:")
+    print_board(board3)
+    max_val3, path3 = find_max_path(board3)
+    print(f"\nMaximum Value: {max_val3}")
+    print(f"Path: {path3}\n")
