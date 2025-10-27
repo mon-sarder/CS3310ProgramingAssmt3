@@ -1,3 +1,4 @@
+import random
 def find_max_path(board):
     """
 
